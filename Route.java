@@ -62,6 +62,8 @@ public class Route {
 	
 	public int newPassengers() {
 		
+		System.out.println("boop");
+		
 		//sets passList to 0 entries
 		for(int j = 0; j < 17; j++) {
 			LinkedQueue <Passenger> pa = new LinkedQueue <Passenger> ();

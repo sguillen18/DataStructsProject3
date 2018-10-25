@@ -42,16 +42,24 @@ public class Station {
 		return passengers;
 	}
 	
+	public String printPass(Passenger p) {
+		return p.getPassInfo();
+	}
+	
 	public void trainArrived(Train t) {
-		Passenger[] onTrain = t.passengerBagToArray();
+		Passenger[] onTrain = new Passenger[t.getBagOfPassengers().getCurrentSize()];
+		onTrain = t.passengerBagToArray();
 		
-		for(int j = t.getNumberOfPassengers() ; j > 0; j++) {
+		for(int j = t.getNumberOfPassengers() -1 ; j > 0; j--) {
 			if(name.equals(onTrain[j].getDestination())) {
+				System.out.println(onTrain[j].getPassInfo());
 				t.removeFromBagOfPass(onTrain[j]);
+				System.out.println("hi");
 			}
 		}
 		
 		if((t.getNumberOfPassengers() + passengers.getSize()) > 100) {
+			System.out.println("shalom");
 			int allowedOn = 100 - t.getNumberOfPassengers();
 			for(int i = 0; i < allowedOn; i++) {
 				Passenger anEntry = passengers.dequeue();
@@ -59,14 +67,15 @@ public class Station {
 			}
 		}
 		
-		else if (passengers.getSize() > 100) {
+		/*else if (passengers.getSize() > 100) {
 			for(int i = 0; i < 100; i++) {
 				Passenger anEntry = passengers.dequeue();
 				t.addToBagOfPass(anEntry);
 			}
-		}
+		}*/
 		
 		else {
+			System.out.println("shalom");
 			for(int i = 0; i < passengers.getSize(); i++) {
 				Passenger anEntry = passengers.dequeue();
 				t.addToBagOfPass(anEntry);

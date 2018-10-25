@@ -41,7 +41,7 @@ public class Train {
 	}
 	
 	public boolean addToBagOfPass(Passenger anEntry) {
-		if(numOfPass >= capacityMax - 1) {
+		if(numOfPass <= capacityMax - 1) {
 			bagOfPassengers.add(anEntry);
 			numOfPass++;
 			return true;

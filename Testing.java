@@ -40,8 +40,10 @@ public class Testing {
 		
 		int simTimeTotMinutes = simTimeTot*60;
 		int lastTrainSendOutTime = trainStationTime * 32;
-		int iterations = lastTrainSendOutTime/trainStationTime;
 		numOfTrains = (simTimeTotMinutes - lastTrainSendOutTime) / trainStationTime;
+		System.out.println(numOfTrains);
+		
+		
 		Train[] t = new Train[numOfTrains];
 		Route r = new Route();
 		r.createStations();
@@ -50,20 +52,26 @@ public class Testing {
 			t[i] = r.createNewTrain();
 		}
 		
-		int numOfIt = 0;
-		while(iterations != numOfIt) {
-			for(int j = 0; j < numOfTrains; j++) {
+		int time = 0;
+		r.newPassengers();
+		int it = 0;
+		while(it != (32 + numOfTrains)){
+			System.out.println("Time: " + time + " minutes");
+			for(int j = 0; j < numOfTrains + 1; j++) {
 				int num = (int) (Math.random()* 10);
 				if(num < 5) {
 					r.newPassengers();
 				}
 				for(int k = 0; k < j; k++) {
+					System.out.println("Train " + (k + 1) + " is at " + t[k].getCurrentStation().getName() + " Station");
+					System.out.println(" Leaving Passengers: ");
 					Station curr = t[k].getCurrentStation();
 					curr.trainArrived(t[k]);
 					t[k].setCurrentStation(r.nextStation(t[k]));
 				}
+				time += trainStationTime; 
+				System.out.println("");
 			}
-			numOfIt++;
 		}
 		
 		
