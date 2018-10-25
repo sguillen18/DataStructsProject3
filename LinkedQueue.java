@@ -98,9 +98,10 @@ public class LinkedQueue <T> implements QueueInterface <T> {
 		T[] result = (T[]) new Object[numOfElements];
 		Node curr = firstNode;
 		int i = 0;
-		while(curr != lastNode) {
+		while(curr != null) {
 			result[i] = curr.getData();
 			curr = curr.getNext();
+			i++;
 		}
 		
 		return result;

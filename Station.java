@@ -47,23 +47,29 @@ public class Station {
 	}
 	
 	public void trainArrived(Train t) {
-		Passenger[] onTrain = new Passenger[t.getBagOfPassengers().getCurrentSize()];
-		onTrain = t.passengerBagToArray();
+		Passenger[] onTrain = t.passengerBagToArray();
 		
-		for(int j = t.getNumberOfPassengers() -1 ; j > 0; j--) {
+		System.out.println(" Leaving Passengers: ");
+		int leavinPass = 0;
+		for(int j = t.getNumberOfPassengers() - 1 ; j > 1; j--) {
 			if(name.equals(onTrain[j].getDestination())) {
-				System.out.println(onTrain[j].getPassInfo());
+				System.out.println("  " + onTrain[j].getPassInfo());
 				t.removeFromBagOfPass(onTrain[j]);
-				System.out.println("hi");
+				leavinPass++;
 			}
 		}
-		
+		if(leavinPass == 0) {
+			System.out.println("  none");
+		}
+		int newPass = 0;
+		System.out.println(" New Passengers: ");
 		if((t.getNumberOfPassengers() + passengers.getSize()) > 100) {
-			System.out.println("shalom");
 			int allowedOn = 100 - t.getNumberOfPassengers();
 			for(int i = 0; i < allowedOn; i++) {
 				Passenger anEntry = passengers.dequeue();
 				t.addToBagOfPass(anEntry);
+				newPass++;
+				System.out.println("  " + anEntry.getPassInfo() );
 			}
 		}
 		
@@ -75,11 +81,15 @@ public class Station {
 		}*/
 		
 		else {
-			System.out.println("shalom");
 			for(int i = 0; i < passengers.getSize(); i++) {
 				Passenger anEntry = passengers.dequeue();
 				t.addToBagOfPass(anEntry);
+				newPass++;
+				System.out.println("  " + anEntry.getPassInfo());
 			}
+		}
+		if(newPass == 0) {
+			System.out.println("  none");
 		}
 	}
 }

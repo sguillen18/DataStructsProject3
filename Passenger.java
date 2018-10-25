@@ -10,7 +10,7 @@ public class Passenger {
 	}
 	
 	public String getPassInfo() {
-		return id + ", " + destination;
+		return (id + ", " + destination);
 	}
 	
 	public String getDestination() {
