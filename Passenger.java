@@ -13,6 +13,10 @@ public class Passenger {
 		return id + ", " + destination;
 	}
 	
+	public String getDestination() {
+		return destination;
+	}
+	
 	
 
 }

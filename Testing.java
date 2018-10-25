@@ -7,14 +7,55 @@ public class Testing {
 		//user gives time interval of time passing between stations
 		//user gives time of entire sim
 		
-		double simTimeTot = 0;
-		
+		int simTimeTot = 0;
+		int trainStationTime = 0;
+		int numOfTrains = 0;
 		
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("Input how long you want the simulation to last, in hours (can be decimal): ");
-		simTimeTot = sc.nextDouble();
+		while(simTimeTot == 0 || trainStationTime == 0 ||
+				trainStationTime < 0 || trainStationTime > 30 || (simTimeTot*60) < trainStationTime) {
+			
+			System.out.println("Input how long you want the simulation to last, in hours: ");
+			simTimeTot = sc.nextInt();
+			
+			System.out.println("Input how long you want the trains to take from station to station, in minutes, from 1 - 30: ");
+			trainStationTime = sc.nextInt();
+			 
+			if(simTimeTot == 0 || trainStationTime == 0) {
+				System.out.println("There was an invalid answer of 0. Please try again with valid answers");
+			}
+			if(trainStationTime < 0 || trainStationTime > 30) {
+				System.out.println("There was an answer out of bounds. Please try again with valid answers");
+			}
+			if((simTimeTot*60) < trainStationTime) {
+				System.out.println("The simulation time should be larger than the train time. Please try again with valid answers");
+			}
+			
+		}
 		
+		int simTimeTotMinutes = simTimeTot*60;
+		int lastTrainSendOutTime = trainStationTime * 30;
+		numOfTrains = (simTimeTotMinutes - lastTrainSendOutTime) / trainStationTime;
+		Train[] t = new Train[numOfTrains];
+		Route r = new Route(trainStationTime, simTimeTot);
+		r.createStations();
+		
+		for(int i = 0; i < numOfTrains; i++) {
+			t[i] = r.createNewTrain();
+		}
+		
+		for(int j = 0; j < numOfTrains; j++) {
+			int num = (int) (Math.random()* 10);
+			if(num < 5) {
+				r.newPassengers();
+			}
+			for(int k = 0; k < j; k++) {
+				Station curr = t[k].getCurrentStation();
+				curr.trainArrived(t[k]);
+				t[k].setCurrentStation(r.nextStation(t[k]));
+			}
+		}
 		
 		
 		sc.close();

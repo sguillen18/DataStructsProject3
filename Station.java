@@ -41,4 +41,35 @@ public class Station {
 	public LinkedQueue <Passenger> getPassList() {
 		return passengers;
 	}
+	
+	public void trainArrived(Train t) {
+		Passenger[] onTrain = t.getBagOfPassengers().toArray();
+		for(int j = t.getNumberOfPassengers() ; j > 0; j++) {
+			if(name.equals(onTrain[j].getDestination())) {
+				t.removeFromBagOfPass(onTrain[j]);
+			}
+		}
+		
+		if((t.getNumberOfPassengers() + passengers.getSize()) > 100) {
+			int allowedOn = 100 - t.getNumberOfPassengers();
+			for(int i = 0; i < allowedOn; i++) {
+				Passenger anEntry = passengers.dequeue();
+				t.addToBagOfPass(anEntry);
+			}
+		}
+		
+		else if (passengers.getSize() > 100) {
+			for(int i = 0; i < 100; i++) {
+				Passenger anEntry = passengers.dequeue();
+				t.addToBagOfPass(anEntry);
+			}
+		}
+		
+		else {
+			for(int i = 0; i < passengers.getSize(); i++) {
+				Passenger anEntry = passengers.dequeue();
+				t.addToBagOfPass(anEntry);
+			}
+		}
+	}
 }
