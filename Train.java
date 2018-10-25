@@ -2,14 +2,12 @@
 public class Train {
 	private LinkedBag <Passenger> bagOfPassengers;
 	private boolean forward = true;
-	private int startingTime;
 	private int capacityMax = 100;
 	private int numOfPass;
 	private Station currStation;
 	
 	public Train() {
 		bagOfPassengers = new LinkedBag <Passenger> ();
-		startingTime = 0;
 		numOfPass = 0;
 	}
 	
@@ -54,6 +52,11 @@ public class Train {
 	public void removeFromBagOfPass(Passenger anEntry) {
 		bagOfPassengers.remove(anEntry);
 		numOfPass--;
+	}
+	
+	public Passenger[] passengerBagToArray() {
+		Passenger[] p = bagOfPassengers.toArray();
+		return p;
 	}
 	
 	

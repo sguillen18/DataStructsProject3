@@ -1,13 +1,9 @@
 
 public class Route {
-	private Station[] stations; 
-	private int trainInterval; //user decides on how long trains take between stations
-	private int interval; //how long the simulation goes on
+	private Station[] stations = new Station[17]; 
 	private int trainAt;
 	
-	public Route(int trNInt, int i) {
-		trainInterval = trNInt;
-		interval = i;
+	public Route() {
 	}
 	
 	public String randID() {

@@ -43,7 +43,8 @@ public class Station {
 	}
 	
 	public void trainArrived(Train t) {
-		Passenger[] onTrain = t.getBagOfPassengers().toArray();
+		Passenger[] onTrain = t.passengerBagToArray();
+		
 		for(int j = t.getNumberOfPassengers() ; j > 0; j++) {
 			if(name.equals(onTrain[j].getDestination())) {
 				t.removeFromBagOfPass(onTrain[j]);

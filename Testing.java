@@ -36,24 +36,28 @@ public class Testing {
 		
 		int simTimeTotMinutes = simTimeTot*60;
 		int lastTrainSendOutTime = trainStationTime * 30;
+		int iterations = lastTrainSendOutTime/trainStationTime;
 		numOfTrains = (simTimeTotMinutes - lastTrainSendOutTime) / trainStationTime;
 		Train[] t = new Train[numOfTrains];
-		Route r = new Route(trainStationTime, simTimeTot);
+		Route r = new Route();
 		r.createStations();
 		
 		for(int i = 0; i < numOfTrains; i++) {
 			t[i] = r.createNewTrain();
 		}
 		
-		for(int j = 0; j < numOfTrains; j++) {
-			int num = (int) (Math.random()* 10);
-			if(num < 5) {
-				r.newPassengers();
-			}
-			for(int k = 0; k < j; k++) {
-				Station curr = t[k].getCurrentStation();
-				curr.trainArrived(t[k]);
-				t[k].setCurrentStation(r.nextStation(t[k]));
+		int numOfIt = 0;
+		while(iterations != numOfIt) {
+			for(int j = 0; j < numOfTrains; j++) {
+				int num = (int) (Math.random()* 10);
+				if(num < 5) {
+					r.newPassengers();
+				}
+				for(int k = 0; k < j; k++) {
+					Station curr = t[k].getCurrentStation();
+					curr.trainArrived(t[k]);
+					t[k].setCurrentStation(r.nextStation(t[k]));
+				}
 			}
 		}
 		
