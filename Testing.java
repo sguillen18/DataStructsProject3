@@ -14,7 +14,7 @@ public class Testing {
 		Scanner sc = new Scanner(System.in);
 		
 		while(simTimeTot == 0 || trainStationTime == 0 ||
-				trainStationTime < 0 || trainStationTime > 30 || (simTimeTot*60) < trainStationTime) {
+				trainStationTime < 0 || trainStationTime > 30 || (simTimeTot*60) < trainStationTime || trainStationTime > (simTimeTot*60 - trainStationTime) || 0 > (simTimeTot*60 - trainStationTime) ) {
 			
 			System.out.println("Input how long you want the simulation to last, in hours: ");
 			simTimeTot = sc.nextInt();
@@ -32,10 +32,14 @@ public class Testing {
 				System.out.println("The simulation time should be larger than the train time. Please try again with valid answers");
 			}
 			
+			if(trainStationTime > (simTimeTot*60 - trainStationTime) || 0 > (simTimeTot*60 - trainStationTime)) {
+				System.out.println("The time the trains take from station to station should be smaller. Please try again with valid answers");
+			}
+			
 		}
 		
 		int simTimeTotMinutes = simTimeTot*60;
-		int lastTrainSendOutTime = trainStationTime * 30;
+		int lastTrainSendOutTime = trainStationTime * 32;
 		int iterations = lastTrainSendOutTime/trainStationTime;
 		numOfTrains = (simTimeTotMinutes - lastTrainSendOutTime) / trainStationTime;
 		Train[] t = new Train[numOfTrains];
@@ -59,6 +63,7 @@ public class Testing {
 					t[k].setCurrentStation(r.nextStation(t[k]));
 				}
 			}
+			numOfIt++;
 		}
 		
 		

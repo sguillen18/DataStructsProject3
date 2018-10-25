@@ -55,7 +55,10 @@ public class Train {
 	}
 	
 	public Passenger[] passengerBagToArray() {
-		Passenger[] p = bagOfPassengers.toArray();
+		Object[] op = bagOfPassengers.toArray();
+		Passenger [] p = new Passenger [op.length];
+		for (int i = 0; i < op.length; i++)
+			p[i] = (Passenger)op[i];
 		return p;
 	}
 	
